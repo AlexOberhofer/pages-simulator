@@ -14,15 +14,28 @@ func handleHome(w http.ResponseWriter, r *http.Request) {
     fmt.Printf("Home Handler called. Count: %d\n", home_counter)
 }
 
-func handleBlog(w http.ResponseWriter, r *http.Request) {
-
-    http.ServeFile(w, r, "blog/blog.html")
+func handleGNU(w http.ResponseWriter, r *http.Request) {
+    http.ServeFile(w, r, "gnuboy/gnuboy.html")
     fmt.Printf("Called Blog Handler")
 }
 
+func handleDownload(w http.ResponseWriter, r *http.Request) {
+	fmt.Printf("Called Download Handler")
+}
+
+func handleProject(w http.ResponseWriter, r *http.Request) {
+	http.ServeFile(w, r, "projects/projects.html")
+	fmt.Printf("Called Project Handler")
+}
+
+func startServer() {
+	fmt.Printf("Attempting to start web server...")
+}
+
+
 func main() {
 
-	fmt.Printf("Server started on port 8081. Press Ctrl + C to exit.\n")
+	fmt.Printf("Server started on port 8080. Press Ctrl + C to exit.\n")
 
     fs := http.FileServer(http.Dir("public"))
 
@@ -30,12 +43,12 @@ func main() {
 
     http.HandleFunc("/", handleHome)
 
-    http.HandleFunc("/blog", handleBlog)
+    http.HandleFunc("/gnuboy", handleGNU)
 
     http.HandleFunc("/hi", func(w http.ResponseWriter, r *http.Request){
         fmt.Fprintf(w, "Hi")
     })
 
-    log.Fatal(http.ListenAndServe(":8081", nil))
+    log.Fatal(http.ListenAndServe(":8080", nil))
 
 }
