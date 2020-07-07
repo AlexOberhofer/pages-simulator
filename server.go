@@ -37,13 +37,9 @@ func main() {
 
 	fmt.Printf("Server started on port 8080. Press Ctrl + C to exit.\n")
 
-    fs := http.FileServer(http.Dir("public"))
+    http.Handle("/", http.FileServer(http.Dir("./")))
 
-    http.Handle("/public/", http.StripPrefix("/public/", fs)) 
-
-    http.HandleFunc("/", handleHome)
-
-    http.HandleFunc("/gnuboy", handleGNU)
+    http.HandleFunc("./", handleHome)
 
     http.HandleFunc("/hi", func(w http.ResponseWriter, r *http.Request){
         fmt.Fprintf(w, "Hi")
