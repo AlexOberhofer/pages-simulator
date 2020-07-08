@@ -13,6 +13,14 @@ Run from source:
 $ go run server.go
 ```
 
+## Flags
+
+Run webserver on custom port
+
+```
+$ go run server.go -p <port>
+```
+
 # License
 
 This project is licensed under the GPLv3. Please see the license file for the terms.

@@ -14,7 +14,11 @@ import (
 	"net/http"
 )
 
-var verbose = 1
+/* log level */
+var verbose = 0 //0 - silent initialize | 1 - verbose initialize
+
+/* Release Version */
+var version = "1.0"
 
 /**
 * Handler function for routing to the home page
@@ -24,6 +28,9 @@ func handleHome(w http.ResponseWriter, r *http.Request) {
 	fmt.Printf("Home handler called...\n")
 }
 
+/*
+* Log a message to standard out
+ */
 func logStdOut(logMessage string) {
 	if verbose > 0 {
 		fmt.Printf(logMessage)
@@ -35,6 +42,11 @@ func logStdOut(logMessage string) {
 * Start server and assign fileservers and handlers
  */
 func startServer() {
+
+	//log regardless of logging level
+	fmt.Printf("pages-simulator Version: %s\n", version)
+	fmt.Print("Alex Oberhofer GPLv3\n")
+
 	logStdOut("Attempting to start web server...")
 
 	//Initialize File Server
@@ -56,6 +68,7 @@ func startServer() {
 * Print usage message to console
  */
 func usage() {
+	fmt.Printf("Usage: \n")
 	fmt.Printf("go run server.go \n")
 	fmt.Printf("Flags: \n")
 	fmt.Printf("p <port> -v <log level>\n")
@@ -65,6 +78,7 @@ func main() {
 
 	port := flag.String("p", "8080", "web server port")
 	//TODO: pull verbose flag here
+
 	flag.Parse()
 
 	startServer()
